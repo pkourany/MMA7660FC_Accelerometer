@@ -86,9 +86,9 @@ void MMA7660::getXYZ(int8_t *x,int8_t *y,int8_t *z)
     	}
         count++;
   	}
-	*x = ((char)(val[0]<<2))/4;
-  	*y = ((char)(val[1]<<2))/4;
-  	*z = ((char)(val[2]<<2))/4;
+	*x = ((int8_t)(val[0]<<2))/4;
+  	*y = ((int8_t)(val[1]<<2))/4;
+  	*z = ((int8_t)(val[2]<<2))/4;
 }
 
 void MMA7660::getAcceleration(float *ax,float *ay,float *az)
