@@ -95,8 +95,8 @@ void MMA7660::getAcceleration(float *ax,float *ay,float *az)
 {
 	int8_t x,y,z;
 	getXYZ(&x,&y,&z);
-	*ax = x/21.00;
-	*ay = y/21.00;
-	*az = z/21.00;
+	*ax = (float)(x/21.00);
+	*ay = (float)(y/21.00);
+	*az = (float)(z/21.00);
 }
 
