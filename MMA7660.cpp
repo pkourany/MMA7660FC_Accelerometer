@@ -100,7 +100,7 @@ void MMA7660::getXYZ(int8_t *x,int8_t *y,int8_t *z)
 	while(Wire.available() > 0)	//Flush any data in the receive buffer
 		Wire.read();
 	
-	writeAddrReadData(MMA7660_ADDR, MMA7769_X, val, 3);
+	writeAddrReadData(MMA7660_ADDR, MMA7660_X, val, 3);
 
 	*x = (val[0] > 63) ? 0 : ((int8_t)(val[0]<<2))/4;
   	*y = (val[1] > 63) ? 0 : ((int8_t)(val[1]<<2))/4;
