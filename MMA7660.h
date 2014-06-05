@@ -55,6 +55,8 @@ class MMA7660
 private:
 	void write(uint8_t _register, uint8_t _data);
 	uint8_t read(uint8_t _register);
+	uint8_t writeAddrWriteData(uint8_t deviceAddress, uint8_t addr, const unsigned char* buf, int length);
+	uint8_t writeAddrReadData(uint8_t deviceAddress, uint8_t addr, unsigned char* buf, int length);
 public:
 	void init();
 	void setMode(uint8_t mode);
