@@ -61,6 +61,8 @@ public:
 	void setSampleRate(uint8_t rate);
 	void getXYZ(int8_t *x,int8_t *y,int8_t *z);
 	void getAcceleration(float *ax,float *ay,float *az);
+	
+	
 };
 
 #endif
