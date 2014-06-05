@@ -27,32 +27,56 @@
 /*Function: Write a byte to the register of the MMA7660*/
 void MMA7660::write(uint8_t _register, uint8_t _data)
 {
-	Wire.begin();
+	//Wire.begin();
 	Wire.beginTransmission(MMA7660_ADDR);
 	Wire.write(_register);   
 	Wire.write(_data);
-	Wire.endTransmission();
+	Wire.endTransmission(true);
 }
 /*Function: Read a byte from the regitster of the MMA7660*/
 uint8_t MMA7660::read(uint8_t _register)
 {
 	uint8_t data_read;
-	Wire.begin();
+	//Wire.begin();
 	Wire.beginTransmission(MMA7660_ADDR);
 	Wire.write(_register); 
-	Wire.endTransmission();
-	Wire.beginTransmission(MMA7660_ADDR);
-	Wire.requestFrom(MMA7660_ADDR,1);
+	Wire.endTransmission(false);
+	//Wire.beginTransmission(MMA7660_ADDR);
+	Wire.requestFrom(MMA7660_ADDR, 1, false);
 	while(Wire.available())
 	{
 		data_read = Wire.read();
 	}
-	Wire.endTransmission();
+	Wire.endTransmission(true);
 	return data_read;
 }
 
+/*
+uint8_t MMA7660::writeAddrWriteData(uint8_t deviceAddress, uint8_t addr, const unsigned char* buf, int length)
+{
+    Wire.beginTransmission(deviceAddress);
+    Wire.write(addr);
+    for (int i=0;i<length;i++)
+    	Wire.write(buf[i]);
+    Wire.endTransmission();
+    return length;
+}
+  
+uint8_t MMA7660::writeAddrReadData(uint8_t deviceAddress, uint8_t addr, unsigned char* buf, int length)
+{
+    Wire.beginTransmission(deviceAddress);
+    Wire.write(addr);
+    Wire.endTransmission(false);  // Don't issue a stop because we need to read the value.
+    Wire.requestFrom((uint8_t) deviceAddress, (uint8_t) length, (uint8_t) false);   
+    for (int i=0;i<length;i++,buf++) *buf = Wire.read();
+    Wire.endTransmission(true);  // Now issue the stop
+    return length;
+}
+*/
+
 void MMA7660::init()
 {
+	Wire.begin();
 	setMode(MMA7660_STAND_BY);
 	setSampleRate(AUTO_SLEEP_32);
 	setMode(MMA7660_ACTIVE);
