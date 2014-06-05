@@ -68,7 +68,8 @@ uint8_t MMA7660::writeAddrReadData(uint8_t deviceAddress, uint8_t addr, unsigned
     Wire.write(addr);
     Wire.endTransmission(false);  // Don't issue a stop because we need to read the value.
     Wire.requestFrom((uint8_t) deviceAddress, (uint8_t) length, (uint8_t) false);   
-    for (int i=0;i<length;i++,buf++) *buf = Wire.read();
+    for (int i=0;i<length;i++,buf++)
+    	*buf = Wire.read();
     Wire.endTransmission(true);  // Now issue the stop
     return length;
 }
@@ -94,25 +95,16 @@ void MMA7660::setSampleRate(uint8_t rate)
 void MMA7660::getXYZ(int8_t *x,int8_t *y,int8_t *z)
 {
 	unsigned char val[3];
-	int count = 0;
+
   	val[0] = val[1] = val[2] = 64;
-	while(Wire.available() > 0)
+	while(Wire.available() > 0)	//Flush any data in the receive buffer
 		Wire.read();
-	Wire.requestFrom(MMA7660_ADDR,3);
-	while(Wire.available())  
-  	{
-    	if(count < 3)
-    	{
-	      	while ( val[count] > 63 )  // reload the damn thing it is bad
-	        {
-	          val[count] = Wire.read();
-	        }
-    	}
-        count++;
-  	}
-	*x = ((int8_t)(val[0]<<2))/4;
-  	*y = ((int8_t)(val[1]<<2))/4;
-  	*z = ((int8_t)(val[2]<<2))/4;
+	
+	writeAddrReadData(MMA7660_ADDR, MMA7769_X, val, 3);
+
+	*x = (val[0] > 63) ? 0 : ((int8_t)(val[0]<<2))/4;
+  	*y = (val[1] > 63) ? 0 : ((int8_t)(val[1]<<2))/4;
+  	*z = (val[2] > 63) ? 0 : ((int8_t)(val[2]<<2))/4;
 }
 
 void MMA7660::getAcceleration(float *ax,float *ay,float *az)
