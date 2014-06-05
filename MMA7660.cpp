@@ -51,7 +51,7 @@ uint8_t MMA7660::read(uint8_t _register)
 	return data_read;
 }
 
-/*
+
 uint8_t MMA7660::writeAddrWriteData(uint8_t deviceAddress, uint8_t addr, const unsigned char* buf, int length)
 {
     Wire.beginTransmission(deviceAddress);
@@ -72,7 +72,7 @@ uint8_t MMA7660::writeAddrReadData(uint8_t deviceAddress, uint8_t addr, unsigned
     Wire.endTransmission(true);  // Now issue the stop
     return length;
 }
-*/
+
 
 void MMA7660::init()
 {
