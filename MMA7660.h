@@ -7,6 +7,7 @@
 //	Version: v0.9b
 //	by www.seeedstudio.com
 //
+//
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Lesser General Public
 //  License as published by the Free Software Foundation; either
@@ -55,16 +56,12 @@ class MMA7660
 private:
 	void write(uint8_t _register, uint8_t _data);
 	uint8_t read(uint8_t _register);
-	uint8_t writeAddrWriteData(uint8_t deviceAddress, uint8_t addr, const unsigned char* buf, int length);
-	uint8_t writeAddrReadData(uint8_t deviceAddress, uint8_t addr, unsigned char* buf, int length);
 public:
 	void init();
 	void setMode(uint8_t mode);
 	void setSampleRate(uint8_t rate);
-	void getXYZ(int8_t *x,int8_t *y,int8_t *z);
-	void getAcceleration(float *ax,float *ay,float *az);
-	
-	
+	unsigned char getXYZ(int8_t *x,int8_t *y,int8_t *z);
+	unsigned char getAcceleration(float *ax,float *ay,float *az);
 };
 
 #endif
